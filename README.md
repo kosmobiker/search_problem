@@ -1,41 +1,26 @@
-# Hybrid Search for RAG LLM Applications  
+# Hybrid Search for RAG LLM Applications
 
-## Why This Matters  
-Effective search is crucial for Retrieval-Augmented Generation (RAG) in LLM applications. This project explores **BM25 Lexical Search, Semantic Search, Hybrid Search, and Reranking** to improve information retrieval for better LLM responses.  
+## Overview
+This repository implements a search engine that combines BM25 lexical search with semantic embedding search to retrieve news articles. It demonstrates a hybrid search approach for Retrieval-Augmented Generation (RAG) applications, using reranking with a cross-encoder for improved relevance.
 
-## Features  
-- **BM25 Lexical Search** – Fast, keyword-based retrieval with `BM25Retriever`.  
-- **Semantic Search** – Context-aware search using sentence embeddings (`SemanticSearch`).  
-- **Hybrid Search** – Blends lexical and semantic results dynamically.  
-- **Reranking** – Uses a Cross Encoder to refine search results.  
+## Features
+- **BM25 Lexical Search** – Implements fast, keyword-based retrieval using the [`LexicalSearch`](engine.py) class.
+- **Semantic Search** – Leverages sentence embeddings with FAISS via the [`SemanticSearch`](engine.py) class.
+- **Hybrid Search** – Merges lexical and semantic results using reciprocal rank fusion ([`reciprocal_rank_fusion`](engine.py)).
+- **Reranking** – Applies a Transformer-based cross-encoder to rerank the combined results, integrated in [app.py](app.py).
+- **Interactive Interface** – Provides a Gradio web interface for live search demos.
+
+## Repository Structure
+- `app.py` – Main application that ties together search functionalities and the Gradio UI.
+- `engine.py` – Contains the implementations of [`LexicalSearch`](engine.py), [`SemanticSearch`](engine.py), and the reciprocal rank fusion function.
+- `embddings.py` – Handles document preprocessing and embedding generation via OpenAI.
+- `data/` – Directory for datasets, indices, and storage of results.
+- `.gitignore`, `pyproject.toml`, etc. – Configuration and dependency management files.
 
 ## Dataset  
 The project uses the **News Category Dataset v3** from Kaggle, containing news articles categorized into different topics. It provides structured news data with headlines, short descriptions, and categories, making it ideal for evaluating search and retrieval methods.  
 
 Dataset source: [News Category Dataset v3](https://www.kaggle.com/code/vikashrajluhaniwal/recommending-news-articles-based-on-read-articles?select=News_Category_Dataset_v3.json)  
-
-## Setup  
-1. **Data:** Uses news data stored in Google Drive.  
-2. **Dependencies:**  
-   - `pandas`, `re`, `numpy`, `torch`, `faiss`, `annoy`  
-   - Sentence Transformer: `all-MiniLM-L6-v2`  
-   - Cross Encoder: `cross-encoder/ms-marco-MiniLM-L-6-v2`  
-
-## How It Works  
-### 🔹 Lexical Search  
-- `BM25Retriever` indexes text and retrieves documents using BM25 scoring.  
-
-### 🔹 Semantic Search  
-- `SemanticSearch` indexes sentence embeddings with FAISS or Annoy.  
-- Uses precomputed embeddings for efficient retrieval.  
-
-### 🔹 Hybrid Search  
-- Merges lexical and semantic results, weighted by an `alpha` parameter.  
-- Ensures unique links and sorts by adjusted relevance scores.  
-
-### 🔹 Reranking  
-- Cross Encoder re-evaluates search results for better ranking.  
-- Jointly encodes query and candidates for enhanced accuracy.  
 
 ## Conclusion  
 This project demonstrates how combining different search techniques enhances retrieval for RAG-based LLM applications. The **hybrid search and reranking approach improves accuracy and relevance**, making it a strong foundation for real-world AI systems  

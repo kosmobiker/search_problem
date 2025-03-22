@@ -1,0 +1,29 @@
+[project]
+name = "search-problem"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "bm25s>=0.2.10",
+    "faiss-cpu>=1.10.0",
+    "gradio>=5.22.0",
+    "ipykernel>=6.29.5",
+    "ipywidgets>=8.1.5",
+    "openai>=1.68.2",
+    "pandas>=2.2.3",
+    "pyarrow>=19.0.1",
+    "pystemmer>=2.2.0.3",
+    "ruff>=0.11.2",
+    "sentence-transformers>=3.4.1",
+]
+
+[tool.ruff]
+# Maximum allowed line length (in characters)
+line-length = 88
+
+# You can also ignore specific error codes if needed (optional)
+# ignore = ["E501"]
+
+# Exclude directories or files (optional)
+exclude = ["venv", ".venv", "build", "dist"]
